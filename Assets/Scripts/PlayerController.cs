@@ -5,15 +5,18 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public PlayerType playerData;
-    public bool rush;
+    [HideInInspector] public bool rush;
 
-    [SerializeField] float minZBound;
-    [SerializeField] float maxZBound;
+    float minZBound;
+    float maxZBound;
+
     [SerializeField] LayerMask ground;
+    [SerializeField] Vector3 offset;
 
     private PlayerMagnet playerMagnet;
     private Vector3 currentTouchDeltaPosition;
 
+    [HideInInspector] public List<GameObject> enemyList;
     void Start()
     {
         rush = true;
@@ -25,6 +28,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+
         if (rush)
         {
             transform.Translate(Vector3.left * Time.deltaTime * playerData.runSpeed, Space.World);
@@ -87,4 +91,5 @@ public class PlayerController : MonoBehaviour
         Gizmos.DrawLine(new Vector3(transform.position.x, 3f, minZBound - 1f), new Vector3(transform.position.x, -2f, minZBound - 0.5f));
         Gizmos.DrawLine(new Vector3(transform.position.x, 3f, maxZBound + 1f), new Vector3(transform.position.x, -2f, maxZBound + 0.5f));
     }
+
 }

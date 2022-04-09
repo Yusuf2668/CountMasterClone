@@ -5,5 +5,7 @@ using UnityEngine;
 public class PlayerType : ScriptableObject
 {
     public float runSpeed;
+
+    [Header("Players")]
     public float moveSpeed;
 }

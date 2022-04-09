@@ -7,6 +7,8 @@ TagManager:
   - Multiply
   - Sum
   - Enemy
+  - PlayerDetecter
+  - MainPlayer
   layers:
   - Default
   - TransparentFX

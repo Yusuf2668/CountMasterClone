@@ -5,15 +5,20 @@ using UnityEngine;
 public class EnemyController : MonoBehaviour
 {
     [SerializeField] PlayerType playerType;
-    public bool attack;
 
-    private PlayerMagnet playerMagnet;
+    GameObject[] playerList;
+    GameObject closestPlayer;
+    float distanceToClosestPlayer;
+    float distanceToPlayer;
+
+    public bool attack;
 
     Animator myAnimator;
 
     void Start()
     {
-        playerMagnet = GameObject.FindObjectOfType<PlayerMagnet>();
+        closestPlayer = null;
+        attack = false;
         myAnimator = GetComponent<Animator>();
     }
 
@@ -22,8 +27,25 @@ public class EnemyController : MonoBehaviour
     {
         if (attack)
         {
-            transform.LookAt(playerMagnet.transform.position);
-            transform.Translate(Vector3.right * Time.deltaTime * playerType.runSpeed, Space.World);
+            FindTheClosestPlayer();
+            transform.LookAt(closestPlayer.transform.position);
+            transform.Translate(Vector3.forward * Time.deltaTime * playerType.runSpeed/3);
+        }
+    }
+
+    void FindTheClosestPlayer()
+    {
+        distanceToClosestPlayer = Mathf.Infinity;
+        closestPlayer = null;
+        playerList = GameObject.FindGameObjectsWithTag("Player");
+        for (int i = 0; i < playerList.Length; i++)
+        {
+            distanceToPlayer = (playerList[i].transform.position - transform.position).sqrMagnitude;
+            if (distanceToPlayer < distanceToClosestPlayer)
+            {
+                distanceToClosestPlayer = distanceToPlayer;
+                closestPlayer = playerList[i];
+            }
         }
     }
 
@@ -32,6 +54,7 @@ public class EnemyController : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             transform.gameObject.SetActive(false);
+            other.gameObject.SetActive(false);
         }
     }
 }
