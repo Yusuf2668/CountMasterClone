@@ -20,6 +20,7 @@ public class EnemyController : MonoBehaviour
         closestPlayer = null;
         attack = false;
         myAnimator = GetComponent<Animator>();
+        myAnimator.enabled = false;
     }
 
 
@@ -27,6 +28,7 @@ public class EnemyController : MonoBehaviour
     {
         if (attack)
         {
+            myAnimator.enabled = true;
             FindTheClosestPlayer();
             transform.LookAt(closestPlayer.transform.position);
             transform.Translate(Vector3.forward * Time.deltaTime * playerType.runSpeed / 3);
