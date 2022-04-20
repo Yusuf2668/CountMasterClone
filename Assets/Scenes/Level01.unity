@@ -1456,10 +1456,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f93b29794bb665945aad66a9a9e32d69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  magnetForce: 7000
+  magnetForce: 500
   player: {fileID: 3254795935174609537, guid: f3f33d289fed10048a9c4dde2143f05b, type: 3}
   playerBodys:
   - {fileID: 7322942897994986178}
+  magnetTime: 0
 --- !u!54 &1169215954
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2283,7 +2284,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1948875999}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -20.75, y: 0, z: 0}
+  m_LocalPosition: {x: -64.5, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1891698531}

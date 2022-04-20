@@ -9,19 +9,10 @@ public class PlayerMagnet : MonoBehaviour
     public GameObject player;
     public List<Rigidbody> playerBodys;
 
-    bool magnetOn = false;
-    float magnetTime;
     int spawnCount = 0;
-    private void Start()
-    {
-        magnetTime = 1f;
-    }
     private void Update()
     {
-        if (magnetOn)
-        {
-            RunnerMagnet();
-        }
+        RunnerMagnet();
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -33,7 +24,6 @@ public class PlayerMagnet : MonoBehaviour
             {
                 CreateRunner();
             }
-            StartCoroutine(RunnerMagnetActive());
         }
 
         if (other.gameObject.CompareTag("Multiply"))
@@ -45,21 +35,20 @@ public class PlayerMagnet : MonoBehaviour
             {
                 CreateRunner();
             }
-            StartCoroutine(RunnerMagnetActive());
         }
     }
     void CreateRunner()
     {
-        GameObject ad = Instantiate(player, transform.position, transform.rotation);
+        GameObject ad = Instantiate(player, PlayerSpawnPosition(), transform.rotation);
         ad.transform.SetParent(transform);
         playerBodys.Add(ad.GetComponent<Rigidbody>());
     }
-
-    IEnumerator RunnerMagnetActive()
+    Vector3 PlayerSpawnPosition()
     {
-        magnetOn = true;
-        yield return new WaitForSeconds(magnetTime);
-        magnetOn = false;
+        Vector3 pos = Random.insideUnitSphere * 0.1f;
+        Vector3 newPos = pos + transform.position;
+        newPos.y = 0f;
+        return newPos;
     }
 
     void RunnerMagnet()
