@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public PlayerType playerData;
-    [HideInInspector] public bool rush;
+    public bool rush;
 
     float minZBound;
     float maxZBound;
@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
     private Vector3 currentTouchDeltaPosition;
 
     [HideInInspector] public List<GameObject> enemyList;
+    GameObject[] enemies;
     void Start()
     {
         rush = true;
@@ -34,6 +35,10 @@ public class PlayerController : MonoBehaviour
             transform.Translate(Vector3.left * Time.deltaTime * playerData.runSpeed, Space.World);
             MovePlayer();
         }
+        else
+        {
+            CheckEnemiesLive();
+        }
         CheckZBound();
     }
 
@@ -49,7 +54,14 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
-
+    void CheckEnemiesLive()
+    {
+        enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        if (enemies.Length == 0)
+        {
+            rush = true;
+        }
+    }
     void CheckZBound()
     {
         minZBound = transform.position.z;

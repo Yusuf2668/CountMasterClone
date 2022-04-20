@@ -29,7 +29,7 @@ public class EnemyController : MonoBehaviour
         {
             FindTheClosestPlayer();
             transform.LookAt(closestPlayer.transform.position);
-            transform.Translate(Vector3.forward * Time.deltaTime * playerType.runSpeed/3);
+            transform.Translate(Vector3.forward * Time.deltaTime * playerType.runSpeed / 3);
         }
     }
 

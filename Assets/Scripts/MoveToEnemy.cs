@@ -21,8 +21,16 @@ public class MoveToEnemy : MonoBehaviour
         if (!playerController.rush)
         {
             FindClosestEnemy();
-            transform.LookAt(closestEnemy.transform.position);
-            transform.Translate(Vector3.forward * playerType.runSpeed * Time.deltaTime/3);
+            try
+            {
+                transform.LookAt(closestEnemy.transform.position);
+            }
+            catch
+            {
+                playerController.rush = false;
+            }
+
+            transform.Translate(Vector3.forward * playerType.runSpeed * Time.deltaTime / 3);
         }
     }
 
@@ -31,6 +39,7 @@ public class MoveToEnemy : MonoBehaviour
         distanceToClosestEnemy = Mathf.Infinity;
         closestEnemy = null;
         enemies = GameObject.FindGameObjectsWithTag("Enemy");
+
         for (int i = 0; i < enemies.Length; i++)
         {
             distanceToEnemy = (enemies[i].transform.position - transform.position).sqrMagnitude;
@@ -39,6 +48,10 @@ public class MoveToEnemy : MonoBehaviour
                 distanceToClosestEnemy = distanceToEnemy;
                 closestEnemy = enemies[i].transform.gameObject;
             }
+        }
+        if (closestEnemy == null)
+        {
+            playerController.rush = false;
         }
     }
 }
